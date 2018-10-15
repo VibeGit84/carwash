@@ -1,0 +1,179 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1" runat="server">
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="background-color: #00FFFF;">
+    <form id="Form1" runat="server">
+    <div class="page">
+    <div class="logo">
+
+        <asp:Image ID="Image3" runat="server" Height="143px" 
+            ImageUrl="~/Slide/3.jpg" Width="242px" />
+
+        <asp:Image ID="Image4" runat="server" 
+            ImageUrl="~/images/LOGO2.png" Width="722px" />
+
+        <asp:Image class ="black" ID="Image5" runat="server" Height="135px" 
+            ImageUrl="~/images/81wiwpW8cqL.png" Width="240px" />
+
+        </div>
+        <div class="header">
+            <div class="title">
+               
+            </div>
+            <div class="loginDisplay" style="background-color: #0066CC">
+            </div>
+            <div class="clear hideSkiplink" style="background-color: #0066CC">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" 
+                    EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal" 
+                    BackColor="#0066CC">
+                    <Items>
+                        <asp:MenuItem Text="Home"/>
+                        <asp:MenuItem Text="About"/>
+                        <asp:MenuItem Text="Contact Us" Value="Contact Us"></asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/images/addCar.aspx" Text="Join Us" 
+                            Value="Join Us">
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="Customer" Value="Customer">
+                            <asp:MenuItem NavigateUrl="~/customer/book.aspx" Text="Book carWash" 
+                                Value="Book carWash"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/customer/VIEWbOOKING.aspx" Text="View booking" 
+                                Value="View booking"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/customer/deleteBooking.aspx" Text="Delete Booking" 
+                                Value="Delete Booking"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/customer/viewCust.aspx" Text="View Member" 
+                                Value="View Member"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/customer/deleteCust.aspx" Text="Delete Member" 
+                                Value="Delete Member"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/customer/updateCust.aspx" Text="Update Details" 
+                                Value="Update Details"></asp:MenuItem>
+                        </asp:MenuItem>
+                    </Items>
+                </asp:Menu>
+            &nbsp;
+            </div>
+        </div>
+        <div class="main1">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <strong>
+                    <asp:Image ID="Image2" runat="server" Height="170px" Width="249px" 
+                        CssClass="ListView1" />
+                    <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    </asp:ScriptManager>
+                    <asp:Timer ID="Timer1" runat="server" Interval="4000">
+                    </asp:Timer>
+                    </strong>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+           
+            <asp:ListView ID="ListView1" runat="server">
+                <AlternatingItemTemplate>
+                    <tr style="">
+                        <td>
+                            <asp:Label ID="tip_tipLabel" runat="server" Text='<%# Eval("tip_tip") %>' />
+                        </td>
+                    </tr>
+                </AlternatingItemTemplate>
+                <EditItemTemplate>
+                    <tr style="">
+                        <td>
+                            <asp:Button ID="UpdateButton" runat="server" CommandName="Update" 
+                                Text="Update" />
+                            <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" 
+                                Text="Cancel" />
+                        </td>
+                        <td>
+                            <asp:TextBox ID="tip_tipTextBox" runat="server" Text='<%# Bind("tip_tip") %>' />
+                        </td>
+                    </tr>
+                </EditItemTemplate>
+                <EmptyDataTemplate>
+                    <table id="Table1" runat="server" style="">
+                        <tr>
+                            <td>
+                                No data was returned.</td>
+                        </tr>
+                    </table>
+                </EmptyDataTemplate>
+                <InsertItemTemplate>
+                    <tr style="">
+                        <td>
+                            <asp:Button ID="InsertButton" runat="server" CommandName="Insert" 
+                                Text="Insert" />
+                            <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" 
+                                Text="Clear" />
+                        </td>
+                        <td>
+                            <asp:TextBox ID="tip_tipTextBox" runat="server" Text='<%# Bind("tip_tip") %>' />
+                        </td>
+                    </tr>
+                </InsertItemTemplate>
+                <ItemTemplate>
+                    <tr style="">
+                        <td>
+                            <asp:Label ID="tip_tipLabel" runat="server" Text='<%# Eval("tip_tip") %>' />
+                        </td>
+                    </tr>
+                </ItemTemplate>
+                <LayoutTemplate>
+                    <table id="Table2" runat="server">
+                        <tr id="Tr1" runat="server">
+                            <td id="Td1" runat="server">
+                                <table ID="itemPlaceholderContainer" runat="server" border="0" style="">
+                                    <tr id="Tr2" runat="server" style="">
+                                        <th id="Th1" runat="server">
+                                            tip_tip</th>
+                                    </tr>
+                                    <tr ID="itemPlaceholder" runat="server">
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr id="Tr3" runat="server">
+                            <td id="Td2" runat="server" style="">
+                                <asp:DataPager ID="DataPager1" runat="server">
+                                    <Fields>
+                                        <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="True" 
+                                            ShowLastPageButton="True" />
+                                    </Fields>
+                                </asp:DataPager>
+                            </td>
+                        </tr>
+                    </table>
+                </LayoutTemplate>
+                <SelectedItemTemplate>
+                    <tr style="">
+                        <td>
+                            <asp:Label ID="tip_tipLabel" runat="server" Text='<%# Eval("tip_tip") %>' />
+                        </td>
+                    </tr>
+                </SelectedItemTemplate>
+            </asp:ListView>
+           
+            <br />
+            <br />
+           
+            <br />
+            <br />
+            <br />
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer" 
+        style="font-family: Calibri; text-decoration: blink; font-size: 18px; font-weight: bold; font-style: italic; text-transform: uppercase; color: #465C71">
+        
+        rights reserved @SEPVENSCARWASH </div>
+    </form>
+</body>
+</html>

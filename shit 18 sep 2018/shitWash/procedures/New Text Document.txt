@@ -1,0 +1,68 @@
+DELIMITER $$
+
+CREATE
+    /*[DEFINER = { user | CURRENT_USER }]*/
+    PROCEDURE `sepvens`.`booking`(
+
+IN washTime Varchar(20),
+IN washType Varchar(20),
+IN washDate  varchar(20),
+IN addOns    varchar(20),
+IN clientID	INT,
+IN cost FLOAT(12.2)
+)
+   
+    BEGIN
+INSERT INTO tbl_booking(bk_washType,bk_addOns,bk_time,bk_date,bk_cost,fk_custID)
+VALUES(washType,addOns,washTime,washDate,cost,clientID);
+    END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sepvens`.`newMember`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `newMember`(
+IN pNAME varchar(20),
+IN pSurname varchar(20),
+IN pGen varchar(6),
+IN pIDnum INT,
+IN pCellNum INT,
+IN pAltCellNum INT,
+IN pStrtAdres varchar(100),
+IN pSuburb varchar(20),
+IN pCardExpDate VARCHAR(11),
+IN pAccNUM INT,
+IN pBankname varchar(20),
+IN pCardType VARCHAR(20),
+IN pCardnum INT,
+IN pBranchCode INT,
+
+IN pRegNum Varchar(20),
+IN pBrand Varchar(20),
+IN pModel Varchar(20),
+IN pType Varchar(20),
+IN pColor Varchar(20)
+)
+BEGIN    
+DECLARE cWashID,custID INT;
+	SELECT MAX(cWash_id) INTO cWashID 
+	FROM tbl_carwash;
+  
+	
+ INSERT INTO tbl_customer(cust_name,cust_surname,cust_gender,cust_idNum,
+		cust_PhoneNum,cust_AltPhoneNum,cust_suburb,cust_ressInfo,fk_cWashID)
+values(pName,pSurname,pGen,pIdNum,pCellNum,pAltCellNum,pStrtAdres,pSuburb,cWashID);
+SELECT MAX(cust_id) INTO custID 
+	from tbl_customer;
+	 
+	INSERT INTO tbl_account(acc_cardExpDate,acc_num,acc_bankName,acc_cardNum,acc_cardType,acc_bankBranchCode,fk_custID)
+	VALUES(pCardExpDate,pAccNUM,pBankname,pCardnum,pCardType,pBranchCode,custID);
+
+INSERT INTO tbl_car(car_regNum,car_brand,car_model,car_type,car_color,fk_custID)
+		values(pRegNum,pBrand,pModel,pType,pColor,custID);
+    END$$
+
+DELIMITER ;
